@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voter Search</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Static CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Success Box -->
+  <div id="success-box">
+    <span id="server-response"></span><br>
+    <button class="reload-btn1" onclick="reload()">OK</button>
+  </div>
+
+  <!-- Warning Box -->
+  <div id="warning-box">
+    <p>⚠️ Warning! This voter has already voted.</p>
+    <button onclick="closeWarning()">OK</button>
+  </div>
+
+  <!-- Timer Box -->
+  <div id="timer-box">
+    <div class="relative">
+      <svg viewBox="0 0 200 200">
+        <circle id="progressCircle" cx="100" cy="100" r="90" fill="none" stroke="#22c55e" stroke-width="15" stroke-dasharray="565.48" stroke-linecap="round" transform="rotate(-90 100 100)"></circle>
+      </svg>
+      <div id="timerText">60</div>
+    </div>
+  </div>
+
+  <!-- Voter Search Form -->
+  <div class="container">
+    <h1>🔍 Voter Search</h1>
+    <form id="search-form">
+      <label for="voter_id">Enter Voter ID:</label>
+      <input type="text" id="voter_id" name="voter_id" required />
+      <button class="search-button" type="submit">Search</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="voter-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Voter Details</h2>
+      <div class="voter-details">
+        <div class="voter-photo">
+          <img src="" alt="Voter Photo" id="voter-photo">
+        </div>
+        <div class="voter-info">
+          <p><strong>Name:</strong> <span id="voter-name"></span></p>
+          <p><strong>Gender:</strong> <span id="voter-gender"></span></p>
+          <p><strong>Voter ID:</strong> <span id="voter-voter-id"></span></p>
+          <p><strong>State:</strong> <span id="voter-state"></span></p>
+          <p><strong>DOB:</strong> <span id="voter-dob"></span></p>
+          <p><strong>District:</strong> <span id="voter-district"></span></p>
+          <p><strong>Constitution:</strong> <span id="voter-constitution"></span></p>
+          <p><strong>Area:</strong> <span id="voter-area"></span></p>
+        </div>
+      </div>
+      <button class="confirm-button" id="confirm-button">Confirm & Continue</button>
+    </div>
+  </div>
+
+
+  <!-- Static JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
