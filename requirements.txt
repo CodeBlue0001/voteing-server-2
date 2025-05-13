@@ -84,7 +84,7 @@ typing_extensions==4.12.2
 uritemplate==4.1.1
 urllib3==2.2.2
 usb==0.0.83.dev0
-Werkzeug==3.0.4
+Werkzeug==3.1.0
 wheel==0.44.0
 whichcraft==0.6.1
 wrapt==1.16.0
