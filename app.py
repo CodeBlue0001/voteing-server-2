@@ -408,4 +408,4 @@ def blocked():
     return "<h1>Blocked: Only one active tab allowed!</h1>"
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=3000) 
+    app.run() 
