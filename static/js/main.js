@@ -101,9 +101,10 @@ $(document).ready(function () {
       method: "POST",
       data: { voter_id: voterId },
       success: function (response) {
-        if (response.vote_status !== "Voter already Voted") {
+        try {
+          if (response.vote_status !== "Voter already Voted") {
           $("#voter-name").text(response.name);
-          $("#voter-voter-id").text(response.voter_id);
+          $("#voter-voter-id").text(response.voterId);
           $("#voter-state").text(response.state);
           $("#voter-district").text(response.district);
           $("#voter-constitution").text(response.constitution);
@@ -122,6 +123,10 @@ $(document).ready(function () {
           $(".container").hide();
           $("#warning-box").show();
         }
+        } catch (error) {
+          alert(error)
+        }
+        
       },
       error: function () {
         alert("Voter not found!");
