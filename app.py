@@ -126,7 +126,7 @@ def get_voter_data(voter_id):
                     # "id": str(voter["_id"]),
                     "name": voter["name"],
                     "date_of_birth":voter["date_of_birth"],
-                    "voter_id": voter["voter_id"],
+                    "voterId": voter["voter_id"],
                     "state": voter["state"],
                     "district": voter["district"],
                     "constitution": voter["constituency"],
@@ -225,6 +225,8 @@ def search_page():
                     if little_collection.count_documents({}) == 0:
                         little_collection.insert_one(voter_data)
                         print("collection ready")
+                    else :
+                        print("One Data sent to the collection, Please wait")
                 else:
                     print("little database not found")
             except Exception as e:
@@ -408,4 +410,4 @@ def blocked():
     return "<h1>Blocked: Only one active tab allowed!</h1>"
 
 if __name__ == "__main__":
-    app.run() 
+    app.run(debug=True, host="0.0.0.0", port=3000) 
