@@ -41,7 +41,9 @@ vote_collection=vote_database["votes"]
 little_db=client["Comuniceting_DB"]
 little_collection=None
 
-
+#failed database collection 
+failed_db=client["failed_attempts"]
+failed_collection=failed_db["users"]
 #voted database
 
 # Encryption key
@@ -322,13 +324,13 @@ def get_pi_response():
 
     CURRENT_VOTER_ID=session["CURRENT_VOTER_ID"]
     # voter_id should be changed in voterId in final testing
-    voting_status=vote_collection.find_one({"voter_id":CURRENT_VOTER_ID})
+    voting_status=vote_collection.find_one({"voterId":CURRENT_VOTER_ID})
     if voting_status:
 
 
         return jsonify({"message": f"Vote Succesfull for{CURRENT_VOTER_ID}","signal":True})
     
-    elif voting_status==False:
+    elif failed_collection.find_one({"voterId":CURRENT_VOTER_ID}):
         return jsonify({"message": "Biometric not matched!!\n Warning!!","signal":False})
     else :
         return None
