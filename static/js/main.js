@@ -8,6 +8,17 @@ async function checkPiResponse() {
       $("#success-box").css("display", "block");
       $(".reload-btn1").css('display', 'inline-block');
     }
+    else if (data.signal==false){
+      $("#server-response").text(data.message);
+      $(".container").hide();
+      $("#success-box").css("color", "rgb(255, 68, 0)");
+      $("#success-box").css("background-color", "rgb(224, 144, 144)");
+      $("#success-box").css("border", "1px solid rgb(212, 103, 103)");
+      $(".reload-btn1").css("background-color", "rgb(252, 6, 6)");
+      $("#success-box").css("display", "block");
+      $(".reload-btn1").css('display', 'inline-block');
+
+    }
   } catch (error) {
     console.error("Error checking Pi response:", error);
   }
