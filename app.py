@@ -53,10 +53,9 @@ cipher_suite = Fernet(key)
 CURRENT_VOTER_ID=None
 CURRENT_USER_BIOMETRIC=None
 ID_AUTH_KEY=None
-# resberry py configuration 
-# RASPBERRY_PI_IP='192.168.137.125' # Replace with your Raspberry Pi's actual IP
-# RASPBERRY_PI_PORT = 3000
-# RASPBERRY_PI_ENDPOINT =f'http://${RASPBERRY_PI_IP}:${RASPBERRY_PI_PORT}/upload_fingerprint'
+
+def string_to_bytes(input_string: str, encoding: str = 'utf-8') -> bytes:
+    return input_string.encode(encoding)
 
 def decrypt_data(encrypted_data):
     """
@@ -96,7 +95,7 @@ def get_image_from_gridfs(photo_file_id):
         print(f"Error retrieving image: {e}")
         return None
 def check_voter_is_not_voted(voter_id):
-    if vote_collection.find_one({"voter_id":voter_id}):
+    if vote_collection.find_one({"voterId":voter_id}):
         return False
     return True
 
@@ -156,13 +155,19 @@ def handle_login():
             return jsonify({"error": "No data provided"}), 400
 
         user_id = data.get("id")
-        user_email = data.get("email")
-        poliing_center_stamp=data.get("polling_center")
+        encrypted_user_email = data.get("email")
+        encrypted_polling_center_stamp=data.get("polling_center")
+
+        # print("\nId=",user_id,"\nemail=",encrypted_user_email,"\n center=",encrypted_polling_center_stamp)
+        user_email=decrypt_data(string_to_bytes(encrypted_user_email))
+        polling_center_stamp=decrypt_data(string_to_bytes(encrypted_polling_center_stamp))
+
+        print("\n\n\nId=",user_id,"\nemail=",user_email,"\n center=",polling_center_stamp)
                
         # little database collection connection creating for one polling booth
         global little_collection
-        poliing_center_stamp=str(poliing_center_stamp)
-        little_collection=little_db[poliing_center_stamp]
+        polling_center_stamp=str(polling_center_stamp)
+        little_collection=little_db[polling_center_stamp]
 
 
         if not user_id or not user_email:
@@ -177,7 +182,7 @@ def handle_login():
             valid_tokens[token] = {
                     "USER_ID": user_id,
                     "USER_EMAIL": user_email,
-                    "STAMP":poliing_center_stamp,
+                    "STAMP":polling_center_stamp,
                     "expires_at": expiry,
                 }
             
