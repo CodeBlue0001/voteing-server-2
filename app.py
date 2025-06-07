@@ -333,11 +333,10 @@ def get_pi_response():
     voting_status=vote_collection.find_one({"voterId":CURRENT_VOTER_ID})
     if voting_status:
 
-
         return jsonify({"message": f"Vote Succesfull for{CURRENT_VOTER_ID}","signal":True})
     
-    elif failed_collection.find_one({"voterId":CURRENT_VOTER_ID}):
-        return jsonify({"message": "Biometric not matched!!\n Warning!!","signal":False})
+    # elif failed_collection.find_one({"voterId":CURRENT_VOTER_ID}):
+    #     return jsonify({"message": "Biometric not matched!!\n Warning!!","signal":False})
     else :
         return None
 
