@@ -223,6 +223,7 @@ def search_page():
 
     if request.method == "POST":
         voter_id = request.form.get("voter_id")
+        print(f"\n\n voter Id given :{voter_id} ")
         voter_data = get_voter_data(voter_id)
         if voter_data["vote_status"]!="Voter Already Voted":
             #debug
